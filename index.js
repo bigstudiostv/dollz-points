@@ -84,7 +84,7 @@ client.once('ready', async () => {
     
     const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN);
     try {
-        await rest.put(Routes.applicationGuildCommands(client.user.id, "1537227259943854211"), { body: commands });
+await rest.put(Routes.applicationCommands(client.user.id), { body: commands });
         console.log('✨ Comandos registrados!');
     } catch (error) {
         console.error('Erro ao registrar comandos:', error);
