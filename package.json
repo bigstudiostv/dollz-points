@@ -1,0 +1,12 @@
+{
+  "name": "dollz-points",
+  "version": "1.0.0",
+  "description": "Bot de pontos para a comunidade DOLLZ",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "discord.js": "^14.14.1"
+  }
+}
