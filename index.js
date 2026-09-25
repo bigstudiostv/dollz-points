@@ -26,10 +26,14 @@ function savePoints() {
     fs.writeFileSync(DATA_FILE, JSON.stringify(pointsData, null, 4));
 }
 
+// Servidor HTTP corrigido para responder ao Render instantaneamente e evitar reboots
 http.createServer((req, res) => {
-    res.write("DOLLZ Points por Texto ativo!");
+    res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8' });
+    res.write("DOLLZ Points online e respondendo ao Render! 💕");
     res.end();
-}).listen(process.env.PORT || 3000);
+}).listen(process.env.PORT || 10000, '0.0.0.0', () => {
+    console.log("🌐 Servidor Web de checagem do Render iniciado com sucesso.");
+});
 
 function formatSymbols(points) {
     if (points <= 0) return "⭐ (0)";
@@ -193,11 +197,3 @@ client.on('interactionCreate', async interaction => {
 
         let desc = "⭐﹒𝑷ontuação﹒\n\n-# **𝑻𝒐𝒑 𝟏𝟎**\n" + (top10Str || "Nenhum.\n");
         if (ranking.length > 10) desc += "\n-# **𝑻𝒐𝒑 𝑴𝒆́𝒅𝒊𝒐**\n" + (topMedioStr || "Nenhum.\n");
-        if (ranking.length > 13) desc += "\n-# **𝑴𝒆𝒏𝒐𝒓𝒆𝒔 𝑷𝒐𝒏𝒕𝒖𝒂𝒄̧𝒐̃𝒆𝒔**\n" + (menoresStr || "Nenhum.\n");
-        desc += "\n-# **𝑳𝒆𝒈𝒆𝒏𝒅𝒂**\n✦ = 5 pontos\n⭐️ = 1 ponto";
-
-        const embed = new EmbedBuilder().setTitle('👑 RANKING DA COMUNIDADE DOLLZ 👑').setColor(pinkColor).setDescription(desc);
-        return interaction.reply({ embeds: [embed] });
-    }
-});
-
